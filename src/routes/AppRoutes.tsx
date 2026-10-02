@@ -10,6 +10,8 @@ import Blogs from "../pages/Blogs";
 import Experience from "../pages/Experience";
 import Testimonials from "../pages/Testimonials";
 import Services from "../pages/Services";
+import Media from "../pages/Media";
+import Messages from "../pages/Messages";
 
 const PlaceholderPage = ({ title }: { title: string }) => {
   return (
@@ -47,15 +49,9 @@ const AppRoutes = () => {
           <Route path="/testimonials" element={<Testimonials />} />
 
           <Route path="/services" element={<Services />} />
-          <Route
-            path="/media"
-            element={<PlaceholderPage title="Media" />}
-          />
+          <Route path="/media" element={<Media />} />
 
-          <Route
-            path="/messages"
-            element={<PlaceholderPage title="Messages" />}
-          />
+          <Route path="/messages" element={<Messages />} />
         </Route>
       </Route>
 
