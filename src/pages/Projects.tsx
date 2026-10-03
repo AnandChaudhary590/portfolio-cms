@@ -10,6 +10,7 @@ interface Project {
   liveUrl?: string | null;
   githubUrl?: string | null;
   technologies?: string[] | null;
+  featured: boolean;
 }
 
 const Projects = () => {
@@ -21,14 +22,14 @@ const Projects = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    image: "",
-    liveUrl: "",
-    githubUrl: "",
-    technologies: "",
-  });
-
+  title: "",
+  description: "",
+  image: "",
+  liveUrl: "",
+  githubUrl: "",
+  technologies: "",
+  featured: false,
+});
   const fetchProjects = async () => {
     try {
       const response = await api.get("/projects");
@@ -45,15 +46,15 @@ const Projects = () => {
   }, []);
 
   const resetForm = () => {
-    setForm({
-      title: "",
-      description: "",
-      image: "",
-      liveUrl: "",
-      githubUrl: "",
-      technologies: "",
-    });
-
+  setForm({
+    title: "",
+    description: "",
+    image: "",
+    liveUrl: "",
+    githubUrl: "",
+    technologies: "",
+    featured: false,
+  });
     setEditingId(null);
     setShowForm(false);
   };
@@ -72,6 +73,7 @@ const Projects = () => {
         .map((item) => item.trim())
         .filter(Boolean)
     : [],
+    featured: form.featured,
   ...(form.image.trim() && {
     image: form.image.trim(),
   }),
@@ -110,18 +112,19 @@ const Projects = () => {
   };
 
   const handleEdit = (project: Project) => {
-    setForm({
-      title: project.title,
-      description: project.description,
-      image: project.image || "",
-      liveUrl: project.liveUrl || "",
-      githubUrl: project.githubUrl || "",
-      technologies: project.technologies?.join(", ") || "",
-    });
+  setForm({
+    title: project.title,
+    description: project.description,
+    image: project.image || "",
+    liveUrl: project.liveUrl || "",
+    githubUrl: project.githubUrl || "",
+    technologies: project.technologies?.join(", ") || "",
+    featured: project.featured,
+  });
 
-    setEditingId(project.id);
-    setShowForm(true);
-  };
+  setEditingId(project.id);
+  setShowForm(true);
+};
 
   const handleDelete = async (id: string) => {
     const confirmed = window.confirm(
@@ -298,6 +301,25 @@ const Projects = () => {
                 className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
               />
             </div>
+
+            {/* Featured Project Checkbox */}
+<div className="md:col-span-2">
+  <label className="flex items-center gap-3 text-sm font-medium text-gray-700">
+    <input
+      type="checkbox"
+      checked={form.featured}
+      onChange={(e) =>
+        setForm({
+          ...form,
+          featured: e.target.checked,
+        })
+      }
+      className="h-4 w-4 rounded border-gray-300"
+    />
+
+    Featured Project
+  </label>
+</div>
 
             <div className="md:col-span-2 flex gap-3">
               <button

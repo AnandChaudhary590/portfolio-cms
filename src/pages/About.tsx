@@ -64,7 +64,7 @@ const About = () => {
 
     try {
       if (form.id) {
-        await api.put(`/about/${form.id}`, {
+  await api.put("/about", {
           title: form.title,
           description: form.description,
           profileImage: form.profileImage || null,
