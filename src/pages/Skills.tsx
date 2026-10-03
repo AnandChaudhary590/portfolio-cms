@@ -58,11 +58,15 @@ const Skills = () => {
     setSaving(true);
 
     const data = {
-      name: form.name,
-      category: form.category,
-      level: form.level ? Number(form.level) : null,
-      icon: form.icon || null,
-    };
+  name: form.name,
+  category: form.category,
+  ...(form.level !== "" && {
+    level: Number(form.level),
+  }),
+  ...(form.icon.trim() !== "" && {
+    icon: form.icon.trim(),
+  }),
+};
 
     try {
       if (editingId) {
