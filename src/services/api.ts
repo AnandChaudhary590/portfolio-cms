@@ -2,9 +2,6 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 api.interceptors.request.use(
@@ -13,6 +10,12 @@ api.interceptors.request.use(
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // JSON requests ke liye Content-Type set karo.
+    // FormData ke liye browser/Axios khud Content-Type + boundary set karega.
+    if (!(config.data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
     }
 
     return config;
@@ -48,10 +51,12 @@ api.interceptors.response.use(
           }
         );
 
+        console.log("Refresh response:", response.data);
+
         const newAccessToken =
           response.data?.data?.accessToken ||
           response.data?.accessToken;
-console.log("Refresh response:", response.data);
+
         if (!newAccessToken) {
           throw new Error("New access token not received");
         }
