@@ -13,20 +13,6 @@ import Services from "../pages/Services";
 import Media from "../pages/Media";
 import Messages from "../pages/Messages";
 
-const PlaceholderPage = ({ title }: { title: string }) => {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-900">
-        {title}
-      </h1>
-
-      <p className="mt-2 text-gray-600">
-        This section will be developed soon.
-      </p>
-    </div>
-  );
-};
-
 const AppRoutes = () => {
   return (
     <Routes>
@@ -49,6 +35,7 @@ const AppRoutes = () => {
           <Route path="/testimonials" element={<Testimonials />} />
 
           <Route path="/services" element={<Services />} />
+
           <Route path="/media" element={<Media />} />
 
           <Route path="/messages" element={<Messages />} />

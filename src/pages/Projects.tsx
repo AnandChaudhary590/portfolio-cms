@@ -131,7 +131,7 @@ const Projects = () => {
       "Are you sure you want to delete this project?"
     );
 
-    if (!confirmed) rtechnologies: peturn;
+    if (!confirmed) return;
 
     try {
       await api.delete(`/projects/${id}`);

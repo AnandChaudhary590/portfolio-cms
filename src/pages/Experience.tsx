@@ -47,11 +47,11 @@ const Experience = () => {
   const resetForm = () => {
     setForm({
       company: "",
-      role: "",
-      location: "",
-      startDate: "",
-      endDate: "",
-      description: "",
+    position: "",
+    location: "",
+    startDate: "",
+    endDate: "",
+    description: "",
     });
 
     setEditingId(null);
